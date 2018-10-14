@@ -1,6 +1,6 @@
 var schedule    = require('node-schedule');
 var mqtt        = require('mqtt');
-var client      = mqtt.connect('mqtt://m2m.eclipse.org'); //m2m.eclipse.org
+var client      = mqtt.connect('mqtt://192.168.1.55'); //m2m.eclipse.org
 
 client.on('connect', function () {
     console.log('Connected MQTT server');
