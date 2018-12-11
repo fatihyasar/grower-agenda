@@ -45,7 +45,7 @@ var task1 = schedule.scheduleJob('0 * * * *', function(fireDate) {
 
 //Stop airfun - that works every hour at 59. min.
 console.log('creating airfun - turn off task');
-var task1 = schedule.scheduleJob('59 * * * *', function(fireDate) {
+var task1 = schedule.scheduleJob('30 * * * *', function(fireDate) {
     console.log('[Airfun] turn off task started with fireDate : ' + fireDate);
 
     var topic = "/actuators/plugs/command/2/off";
