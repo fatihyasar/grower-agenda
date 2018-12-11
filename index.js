@@ -26,18 +26,36 @@ var task2 = schedule.scheduleJob('00 19 * * *', function(fireDate) {
     sendNotificaion(alert);
 });  
 
-//Start airfun - that works every day at 08:01 
+
 console.log('scheduling airfun management on crontab');
+
+//Start airfun - that works every hour at 0 min.
 console.log('creating airfun - turn on task');
 var task1 = schedule.scheduleJob('0 * * * *', function(fireDate) {
-    console.log('Airfun turn on task started with fireDate : ' + fireDate);
-    var alert = "Airfun is turned ON";
-    sendNotificaion(alert);    
-    console.log(alert);    
-    
+    console.log('[Airfun] turn on task started with fireDate : ' + fireDate);
+
     var topic = "/actuators/plugs/command/2/on";
     client.publish(topic, JSON.stringify({}));        
+
+    var alert = "[Airfun] is turned ON";
+    sendNotificaion(alert);    
+    console.log(alert);    
 });
+
+
+//Stop airfun - that works every hour at 59. min.
+console.log('creating airfun - turn off task');
+var task1 = schedule.scheduleJob('59 * * * *', function(fireDate) {
+    console.log('[Airfun] turn off task started with fireDate : ' + fireDate);
+
+    var topic = "/actuators/plugs/command/2/off";
+    client.publish(topic, JSON.stringify({}));        
+
+    var alert = "[Airfun] is turned OFF";
+    sendNotificaion(alert);    
+    console.log(alert);    
+});
+
 
 
 function sendNotificaion(alert) {
@@ -46,11 +64,7 @@ function sendNotificaion(alert) {
     var data = {};
     data.payload = "";
     data.alert = alert;
-    client.publish(topic, JSON.stringify(data));     
-    
-    var topic = "/actuators/plugs/command/2/off";
-    client.publish(topic, JSON.stringify({}));        
-    
+    client.publish(topic, JSON.stringify(data));         
 }
 
 
